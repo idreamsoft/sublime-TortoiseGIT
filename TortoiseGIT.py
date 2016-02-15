@@ -6,13 +6,6 @@ import subprocess
 
 class TortoiseGitCommand(sublime_plugin.WindowCommand):
     def run(self, cmd, paths=None, isHung=False):
-        if paths is not None:
-            for index, path in enumerate(paths):
-              if "${PROJECT_PATH}" in path:
-                  project_data  = sublime.active_window().project_data()
-                  project_folder = project_data['folders'][0]['path']
-                  path = path.replace("${PROJECT_PATH}", project_folder);
-                  paths[index] = path
         dir = self.get_path(paths)
 
         if not dir:
@@ -20,20 +13,17 @@ class TortoiseGitCommand(sublime_plugin.WindowCommand):
 
         settings = self.get_setting()
         tortoiseproc_path = settings.get('tortoiseproc_path')
-        pathEncoding = settings.get('pathEncoding')
 
         if not os.path.isfile(tortoiseproc_path):
-            sublime.error_message('can\'t find TortoiseGitProc.exe,'
+            sublime.error_message('can\'t find TortoiseProc.exe,'
                 ' please config setting file' '\n   --sublime-TortoiseGIT')
             raise
 
-        cmd = '"' + tortoiseproc_path + '"' +
-            ' /command:' + cmd + ' /path:"%s"' % dir
-
-        proce = subprocess.Popen(cmd.encode(pathEncoding) if pathEncoding else cmd , stdout=subprocess.PIPE)
+        proce = subprocess.Popen('"' + tortoiseproc_path + '"' +
+            ' /command:' + cmd + ' /path:"%s"' % dir , stdout=subprocess.PIPE)
 
         # This is required, cause of ST must wait TortoiseGIT update then revert
-        # the file. Otherwise the file reverting occur before SVN update, if the
+        # the file. Otherwise the file reverting occur before GIT update, if the
         # file changed the file content in ST is older.
         if isHung:
             proce.communicate()
@@ -69,7 +59,7 @@ class MutatingTortoiseGitCommand(TortoiseGitCommand):
         self.view.window().run_command('goto_line', {'line':self.lastLine})
 
 
-class GitUpdateCommand(MutatingTortoiseGitCommand):
+class GitPullCommand(MutatingTortoiseGitCommand):
     def run(self, paths=None):
         settings = self.get_setting()
         closeonend = ('3' if True == settings.get('autoCloseUpdateDialog')
@@ -121,8 +111,3 @@ class GitBlameCommand(TortoiseGitCommand):
 class GitAddCommand(TortoiseGitCommand):
     def run(self, paths=None):
         TortoiseGitCommand.run(self, 'add', paths)
-
-
-class GitBranchCommand(TortoiseGitCommand):
-    def run(self, paths=None):
-        TortoiseGitCommand.run(self, 'copy', paths)
