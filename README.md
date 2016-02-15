@@ -13,7 +13,7 @@ by setting property "TortoiseGitProc_path" in your TortoiseGIT.sublime-settings 
 
 The default key bindings are
 - [alt+c] : commit current file.
-- [alt+u] : update current file.
+- [alt+p] : pull current file.
 - [alt+r] : revert current file.
 
 You can also call TortoiseGIT commands when right-clicking folders or files in the side bar.

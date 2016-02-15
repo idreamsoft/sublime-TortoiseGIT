@@ -1,9 +1,9 @@
 [
-	{ "keys": ["alt+u"], "command": "git_pull" },
+	{ "keys": ["alt+p"], "command": "git_pull" },
 	{ "keys": ["alt+c"], "command": "git_commit" },
 	{ "keys": ["alt+r"], "command": "git_revert" },
 	{ "keys": ["alt+shift+c"], "command": "git_commit","args": { "paths": ["${PROJECT_PATH}"] } },
-	{ "keys": ["alt+shift+u"], "command": "git_pull", "args": { "paths": ["${PROJECT_PATH}"] } },
+	{ "keys": ["alt+shift+p"], "command": "git_pull", "args": { "paths": ["${PROJECT_PATH}"] } },
 	{ "keys": ["alt+shift+r"], "command": "git_revert", "args": { "paths": ["${PROJECT_PATH}"] } }
 
 	// ,{ "keys": ["alt+l"], "command": "git_log" }
