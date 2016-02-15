@@ -1,6 +1,6 @@
 [
-	{ "caption": "TortoiseSVN: Pull", "command": "git_pull" },
-	{ "caption": "TortoiseSVN: Commit", "command": "git_commit" },
-	{ "caption": "TortoiseSVN: Revert", "command": "git_revert" },
-	{ "caption": "TortoiseSVN: Log", "command": "git_log" }
+	{ "caption": "TortoiseGIT: Pull", "command": "git_pull" },
+	{ "caption": "TortoiseGIT: Commit", "command": "git_commit" },
+	{ "caption": "TortoiseGIT: Revert", "command": "git_revert" },
+	{ "caption": "TortoiseGIT: Log", "command": "git_log" }
 ]

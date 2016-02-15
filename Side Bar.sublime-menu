@@ -1,11 +1,7 @@
 [
 	{ "caption": "-" },
-	{ "caption": "GIT",
-
-	"children":
-	[
-		{ "caption": "-" },
-
+    {"caption": "GIT",
+     "children":[
 			{ "caption": "Add", "command": "git_add", "args": {"paths":[]}},
 			{ "caption": "Pull", "command": "git_pull", "args": {"paths":[]}},
 			{ "caption": "Diff", "command": "git_diff", "args": {"paths":[]}, },
@@ -14,10 +10,8 @@
 			{ "caption": "Log", "command": "git_log", "args": {"paths":[]}},
 			{ "caption": "Blame", "command": "git_blame", "args": {"paths":[]}},
 			{ "caption": "Switch", "command": "git_switch", "args": {"paths":[]}},
-			{ "caption": "Branch", "command": "git_branch", "args": {"paths":[]}},
-
-		{ "caption": "-" }
-	]},
-
-	{ "caption": "-", "id": "end" }
+			{ "caption": "Branch", "command": "git_branch", "args": {"paths":[]}}
+        	{ "caption": "-", "id": "end" }
+    	]
+	}
 ]
