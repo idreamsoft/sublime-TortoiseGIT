@@ -3,5 +3,5 @@
 	"autoCloseUpdateDialog": false,
 	// Auto close commit dialog when no errors, conflicts and merges
 	"autoCloseCommitDialog": true,
-	"tortoiseproc_path": "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseProc.exe"
+    "tortoiseproc_path": "C:\\Program Files\\TortoiseGit\\bin\\TortoiseGitProc.exe"
 }

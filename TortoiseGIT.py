@@ -4,7 +4,7 @@ import os
 import os.path
 import subprocess
 
-class TortoiseSvnCommand(sublime_plugin.WindowCommand):
+class TortoiseGitCommand(sublime_plugin.WindowCommand):
     def run(self, cmd, paths=None, isHung=False):
         if paths is not None:
             for index, path in enumerate(paths):
@@ -12,27 +12,27 @@ class TortoiseSvnCommand(sublime_plugin.WindowCommand):
                   project_data  = sublime.active_window().project_data()
                   project_folder = project_data['folders'][0]['path']
                   path = path.replace("${PROJECT_PATH}", project_folder);
-                  paths[index] = path	
+                  paths[index] = path
         dir = self.get_path(paths)
 
         if not dir:
             return
-            
+
         settings = self.get_setting()
         tortoiseproc_path = settings.get('tortoiseproc_path')
         pathEncoding = settings.get('pathEncoding')
 
         if not os.path.isfile(tortoiseproc_path):
-            sublime.error_message('can\'t find TortoiseProc.exe,'
-                ' please config setting file' '\n   --sublime-TortoiseSVN')
+            sublime.error_message('can\'t find TortoiseGitProc.exe,'
+                ' please config setting file' '\n   --sublime-TortoiseGIT')
             raise
 
-        cmd = '"' + tortoiseproc_path + '"' + 
+        cmd = '"' + tortoiseproc_path + '"' +
             ' /command:' + cmd + ' /path:"%s"' % dir
 
         proce = subprocess.Popen(cmd.encode(pathEncoding) if pathEncoding else cmd , stdout=subprocess.PIPE)
 
-        # This is required, cause of ST must wait TortoiseSVN update then revert
+        # This is required, cause of ST must wait TortoiseGIT update then revert
         # the file. Otherwise the file reverting occur before SVN update, if the
         # file changed the file content in ST is older.
         if isHung:
@@ -49,13 +49,13 @@ class TortoiseSvnCommand(sublime_plugin.WindowCommand):
         return path
 
     def get_setting(self):
-        return sublime.load_settings('TortoiseSVN.sublime-settings')
+        return sublime.load_settings('TortoiseGIT.sublime-settings')
 
 
-class MutatingTortoiseSvnCommand(TortoiseSvnCommand):
+class MutatingTortoiseGitCommand(TortoiseGitCommand):
     def run(self, cmd, paths=None):
-        TortoiseSvnCommand.run(self, cmd, paths, True)
-        
+        TortoiseGitCommand.run(self, cmd, paths, True)
+
         self.view = sublime.active_window().active_view()
         row, col = self.view.rowcol(self.view.sel()[0].begin())
         self.lastLine = str(row + 1);
@@ -69,60 +69,60 @@ class MutatingTortoiseSvnCommand(TortoiseSvnCommand):
         self.view.window().run_command('goto_line', {'line':self.lastLine})
 
 
-class SvnUpdateCommand(MutatingTortoiseSvnCommand):
+class GitUpdateCommand(MutatingTortoiseGitCommand):
     def run(self, paths=None):
         settings = self.get_setting()
         closeonend = ('3' if True == settings.get('autoCloseUpdateDialog')
             else '0')
-        MutatingTortoiseSvnCommand.run(self, 'update /closeonend:' + closeonend, 
+        MutatingTortoiseGitCommand.run(self, 'pull /closeonend:' + closeonend,
             paths)
 
 
-class SvnCommitCommand(TortoiseSvnCommand):
+class GitCommitCommand(TortoiseGitCommand):
     def run(self, paths=None):
         settings = self.get_setting()
         closeonend = ('3' if True == settings.get('autoCloseCommitDialog')
             else '0')
-        TortoiseSvnCommand.run(self, 'commit /closeonend:' + closeonend, paths)
+        TortoiseGitCommand.run(self, 'commit /closeonend:' + closeonend, paths)
 
 
-class SvnRevertCommand(MutatingTortoiseSvnCommand):
+class GitRevertCommand(MutatingTortoiseGitCommand):
     def run(self, paths=None):
-        MutatingTortoiseSvnCommand.run(self, 'revert', paths)
+        MutatingTortoiseGitCommand.run(self, 'revert', paths)
 
 
-class SvnLogCommand(TortoiseSvnCommand):
+class GitLogCommand(TortoiseGitCommand):
     def run(self, paths=None):
-        TortoiseSvnCommand.run(self, 'log', paths)
+        TortoiseGitCommand.run(self, 'log', paths)
 
 
-class SvnSwitchCommand(TortoiseSvnCommand):
+class GitSwitchCommand(TortoiseGitCommand):
     def run(self, paths=None):
-        TortoiseSvnCommand.run(self, 'switch', paths)
+        TortoiseGitCommand.run(self, 'switch', paths)
 
 
-class SvnDiffCommand(TortoiseSvnCommand):
+class GitDiffCommand(TortoiseGitCommand):
     def run(self, paths=None):
-        TortoiseSvnCommand.run(self, 'diff', paths)
+        TortoiseGitCommand.run(self, 'diff', paths)
 
 
-class SvnBlameCommand(TortoiseSvnCommand):
+class GitBlameCommand(TortoiseGitCommand):
     def run(self, paths=None):
         view = sublime.active_window().active_view()
         row = view.rowcol(view.sel()[0].begin())[0] + 1
 
-        TortoiseSvnCommand.run(self, 'blame /line:' + str(row), paths)
+        TortoiseGitCommand.run(self, 'blame /line:' + str(row), paths)
 
     def is_visible(self, paths=None):
         file = self.get_path(paths)
         return os.path.isfile(file) if file else False
 
 
-class SvnAddCommand(TortoiseSvnCommand):
+class GitAddCommand(TortoiseGitCommand):
     def run(self, paths=None):
-        TortoiseSvnCommand.run(self, 'add', paths)
+        TortoiseGitCommand.run(self, 'add', paths)
 
 
-class SvnBranchCommand(TortoiseSvnCommand):
+class GitBranchCommand(TortoiseGitCommand):
     def run(self, paths=None):
-        TortoiseSvnCommand.run(self, 'copy', paths)
+        TortoiseGitCommand.run(self, 'copy', paths)

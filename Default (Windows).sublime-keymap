@@ -1,11 +1,11 @@
 [
-	{ "keys": ["alt+u"], "command": "svn_update" },
-	{ "keys": ["alt+c"], "command": "svn_commit" },
-	{ "keys": ["alt+r"], "command": "svn_revert" },
-	{ "keys": ["alt+shift+c"], "command": "svn_commit","args": { "paths": ["${PROJECT_PATH}"] } },
-	{ "keys": ["alt+shift+u"], "command": "svn_update", "args": { "paths": ["${PROJECT_PATH}"] } },
-	{ "keys": ["alt+shift+r"], "command": "svn_revert", "args": { "paths": ["${PROJECT_PATH}"] } }
-	
-	// ,{ "keys": ["alt+l"], "command": "svn_log" }
-	// ,{ "keys": ["alt+d"], "command": "svn_diff" }
+	{ "keys": ["alt+u"], "command": "git_pull" },
+	{ "keys": ["alt+c"], "command": "git_commit" },
+	{ "keys": ["alt+r"], "command": "git_revert" },
+	{ "keys": ["alt+shift+c"], "command": "git_commit","args": { "paths": ["${PROJECT_PATH}"] } },
+	{ "keys": ["alt+shift+u"], "command": "git_pull", "args": { "paths": ["${PROJECT_PATH}"] } },
+	{ "keys": ["alt+shift+r"], "command": "git_revert", "args": { "paths": ["${PROJECT_PATH}"] } }
+
+	// ,{ "keys": ["alt+l"], "command": "git_log" }
+	// ,{ "keys": ["alt+d"], "command": "git_diff" }
 ]
