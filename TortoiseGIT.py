@@ -75,6 +75,14 @@ class GitPushCommand(MutatingTortoiseGitCommand):
         MutatingTortoiseGitCommand.run(self, 'push /closeonend:' + closeonend,
             paths)
 
+class GitSyncCommand(MutatingTortoiseGitCommand):
+    def run(self, paths=None):
+        settings = self.get_setting()
+        closeonend = ('3' if True == settings.get('autoCloseUpdateDialog')
+            else '0')
+        MutatingTortoiseGitCommand.run(self, 'sync  /closeonend:' + closeonend,
+            paths)
+            
 class GitCommitCommand(TortoiseGitCommand):
     def run(self, paths=None):
         settings = self.get_setting()

@@ -5,6 +5,7 @@
 			{ "caption": "Add", "command": "git_add", "args": {"paths":[]}},
             { "caption": "Pull", "command": "git_pull", "args": {"paths":[]}},
             { "caption": "Push", "command": "git_push", "args": {"paths":[]}},
+            { "caption": "Sync", "command": "git_sync", "args": {"paths":[]}},
 			{ "caption": "Diff", "command": "git_diff", "args": {"paths":[]}},
 			{ "caption": "Commit", "command": "git_commit", "args": {"paths":[]}},
 			{ "caption": "Revert", "command": "git_revert", "args": {"paths":[]}},
